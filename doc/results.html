@@ -1,0 +1,2812 @@
+<html>
+<style>
+th.rotate {
+      /* Something you can count on */
+      height: 140px;
+      white-space: nowrap;
+    }
+
+    th.rotate > div {
+      transform:
+        /* Magic Numbers */
+        translate(25px, 51px)
+        /* 45 is really 360 - 45 */
+        rotate(315deg);
+      width: 30px;
+    }
+    th.rotate > div > span {
+      border-bottom: 1px solid #ccc;
+      padding: 5px 10px;
+    }
+
+    table, table * {white-space: nowrap}
+
+    p {
+        width:800px;
+    }
+
+    .sel_user {
+        border-color: black;
+        border-width: 4px;
+        border-style: solid
+    }
+    </style>
+    
+<h3>Notes</h3>
+<p><em>If I made any notes, they will be below. Usually if they exist, it is the
+    things that had to be fixed:</em>
+<h3>Overall results</h3>
+<p>
+        There are three components to the tests shown here, which are extractions
+        of the detailed results in the logs. The shading from green to red indicates
+        values from 1.0 to 0.0, and the small values in brackets are the class average.
+        <ul>
+        <li>Ref Tester vs Your CPU : I run your CPU against my (assumed good) tester, and report
+            what percentage of tests passed.
+        <li>Your Tester vs Ref CPU : I run your tester against my (assumed good) cpu, and report
+            what percentage of tests you claimed passed. The CPU is correct, so ideally all instructions
+            should be shown to pass.
+        <li>Your Tester vs Null CPU : I run your tester against a null CPU. The null CPU works
+            perfectly, except for the single instruction you claim to be testing. For that instruction
+            it will just return mips_Success and move onto the next instruction. It is almost impossible
+            for a tester to show that it fails in all cases, but a good test-suite should have at least
+            one test that shows it failing. Note that this means the linear scaling of colour is
+            not quite right here - as long as there is one failed test the tester has done its job.
+            So in the ideal case your tester would say that 0% of its instructions passed, but as
+            long as it says <100% pass then it is doing it job.
+        </ul>
+        <p>The results of all the tests are included in the zip file, including the stderr, stdout, and
+        csv files. I have included the results of running your tester on your cpu, but this isn't
+        used for marking.
+        
+  <table>
+<tr><td>Instr</td><td>Ref Tester vs Your CPU</td><td>Your Tester vs Ref CPU</td><td> Your Tester vs Null CPU</td>
+    <tr><td>ADD       </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#16e800">( 91%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#14ea00">( 92%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#3ec000">( 24%)</span></td>
+</tr>
+    <tr><td>BEQ       </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#53ab00">( 67%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#649a00">( 61%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 050.00% <span style="margin:4px; background-color:#4faf00">( 31%)</span></td>
+</tr>
+    <tr><td>BGEZ      </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#738b00">( 55%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#738b00">( 55%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 033.33% <span style="margin:4px; background-color:#33cb00">( 20%)</span></td>
+</tr>
+    <tr><td>BGEZAL    </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#a55900">( 35%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#7d8100">( 51%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#22dc00">( 13%)</span></td>
+</tr>
+    <tr><td>BGTZ      </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#5ba300">( 64%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#6b9300">( 58%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 066.67% <span style="margin:4px; background-color:#4ab400">( 29%)</span></td>
+</tr>
+    <tr><td>BLEZ      </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#708e00">( 56%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#669800">( 60%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 033.33% <span style="margin:4px; background-color:#37c700">( 22%)</span></td>
+</tr>
+    <tr><td>BLTZ      </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#689600">( 59%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#639b00">( 61%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 066.67% <span style="margin:4px; background-color:#53ab00">( 33%)</span></td>
+</tr>
+    <tr><td>BLTZAL    </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#a55900">( 35%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#7e8000">( 50%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#2cd200">( 17%)</span></td>
+</tr>
+    <tr><td>BNE       </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#7b8300">( 52%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#629c00">( 61%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 050.00% <span style="margin:4px; background-color:#44ba00">( 27%)</span></td>
+</tr>
+    <tr><td>DIV       </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#827c00">( 49%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#8e7000">( 44%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#15e900">(  8%)</span></td>
+</tr>
+    <tr><td>DIVU      </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#768800">( 53%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#877700">( 47%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#16e800">(  9%)</span></td>
+</tr>
+    <tr><td>J         </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#946a00">( 42%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#857900">( 48%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#0ef000">(  6%)</span></td>
+</tr>
+    <tr><td>JAL       </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#946a00">( 42%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#8b7300">( 45%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#09f500">(  4%)</span></td>
+</tr>
+    <tr><td>JALR      </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#9a6400">( 40%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#906e00">( 43%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#10ee00">(  6%)</span></td>
+</tr>
+    <tr><td>JR        </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#a05e00">( 37%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#867800">( 47%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#0af400">(  4%)</span></td>
+</tr>
+    <tr><td>MFHI      </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#7e8000">( 51%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#817d00">( 49%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#2ad400">( 16%)</span></td>
+</tr>
+    <tr><td>MFLO      </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#7e8000">( 51%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#778700">( 53%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#2dd100">( 18%)</span></td>
+</tr>
+    <tr><td>MTHI      </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#8a7400">( 46%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#7c8200">( 51%)</span></td>
+<td style="text-align:right" bgcolor="#ff0000"> 100.00% <span style="margin:4px; background-color:#24da00">( 14%)</span></td>
+</tr>
+    <tr><td>MTLO      </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#8e7000">( 44%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#827c00">( 49%)</span></td>
+<td style="text-align:right" bgcolor="#ff0000"> 100.00% <span style="margin:4px; background-color:#2ad400">( 17%)</span></td>
+</tr>
+    <tr><td>MULT      </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#8f6f00">( 44%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#936b00">( 42%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#0fef00">(  6%)</span></td>
+</tr>
+    <tr><td>MULTU     </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#7d8100">( 51%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#8f6f00">( 44%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#15e900">(  8%)</span></td>
+</tr>
+    <tr><td>SB        </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#768800">( 53%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#768800">( 54%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#03fb00">(  1%)</span></td>
+</tr>
+    <tr><td>SH        </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#877700">( 47%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#7e8000">( 50%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#0df100">(  5%)</span></td>
+</tr>
+    <tr><td>SLT       </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#13eb00">( 92%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#1de100">( 88%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#36c800">( 22%)</span></td>
+</tr>
+    <tr><td>SLTU      </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#0cf200">( 95%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#1de100">( 88%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#639b00">( 39%)</span></td>
+</tr>
+    <tr><td>SW        </td><td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:2px; background-color:#778700">( 53%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#5ea000">( 63%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#18e600">( 10%)</span></td>
+</tr>
+    <tr><td>ADDU      </td><td style="text-align:right" bgcolor="#02fc00"> 099.00% <span style="margin:2px; background-color:#08f600">( 97%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#0ef000">( 94%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#38c600">( 22%)</span></td>
+</tr>
+    <tr><td>AND       </td><td style="text-align:right" bgcolor="#02fc00"> 099.00% <span style="margin:2px; background-color:#0bf300">( 95%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#23db00">( 86%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#2cd200">( 17%)</span></td>
+</tr>
+    <tr><td>OR        </td><td style="text-align:right" bgcolor="#02fc00"> 099.00% <span style="margin:2px; background-color:#12ec00">( 93%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#29d500">( 84%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#23db00">( 14%)</span></td>
+</tr>
+    <tr><td>SLL       </td><td style="text-align:right" bgcolor="#02fc00"> 099.00% <span style="margin:2px; background-color:#17e700">( 91%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#4eb000">( 69%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#17e700">(  9%)</span></td>
+</tr>
+    <tr><td>SLLV      </td><td style="text-align:right" bgcolor="#02fc00"> 099.00% <span style="margin:2px; background-color:#20de00">( 87%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#3cc200">( 76%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#13eb00">(  8%)</span></td>
+</tr>
+    <tr><td>SRA       </td><td style="text-align:right" bgcolor="#02fc00"> 099.00% <span style="margin:2px; background-color:#26d800">( 85%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#43bb00">( 73%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#15e900">(  8%)</span></td>
+</tr>
+    <tr><td>SRL       </td><td style="text-align:right" bgcolor="#02fc00"> 099.00% <span style="margin:2px; background-color:#1de100">( 88%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#48b600">( 71%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#19e500">( 10%)</span></td>
+</tr>
+    <tr><td>SRLV      </td><td style="text-align:right" bgcolor="#02fc00"> 099.00% <span style="margin:2px; background-color:#1ae400">( 90%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#42bc00">( 74%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#15e900">(  9%)</span></td>
+</tr>
+    <tr><td>SUB       </td><td style="text-align:right" bgcolor="#02fc00"> 099.00% <span style="margin:2px; background-color:#22dc00">( 86%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#22dc00">( 87%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#24da00">( 14%)</span></td>
+</tr>
+    <tr><td>SUBU      </td><td style="text-align:right" bgcolor="#02fc00"> 099.00% <span style="margin:2px; background-color:#0fef00">( 94%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#21dd00">( 87%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#3ac400">( 23%)</span></td>
+</tr>
+    <tr><td>XOR       </td><td style="text-align:right" bgcolor="#02fc00"> 099.00% <span style="margin:2px; background-color:#0cf200">( 95%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#1ee000">( 88%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#24da00">( 14%)</span></td>
+</tr>
+    <tr><td>LB        </td><td style="text-align:right" bgcolor="#05f900"> 098.00% <span style="margin:2px; background-color:#659900">( 60%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#738b00">( 55%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 050.00% <span style="margin:4px; background-color:#14ea00">(  8%)</span></td>
+</tr>
+    <tr><td>LBU       </td><td style="text-align:right" bgcolor="#05f900"> 098.00% <span style="margin:2px; background-color:#6d9100">( 57%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#708e00">( 56%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#14ea00">(  8%)</span></td>
+</tr>
+    <tr><td>LW        </td><td style="text-align:right" bgcolor="#05f900"> 098.00% <span style="margin:2px; background-color:#6f8f00">( 56%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#58a600">( 65%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#0bf300">(  5%)</span></td>
+</tr>
+    <tr><td>LH        </td><td style="text-align:right" bgcolor="#07f700"> 097.00% <span style="margin:2px; background-color:#877700">( 47%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#7b8300">( 52%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 050.00% <span style="margin:4px; background-color:#09f500">(  4%)</span></td>
+</tr>
+    <tr><td>LHU       </td><td style="text-align:right" bgcolor="#07f700"> 097.00% <span style="margin:2px; background-color:#8e7000">( 44%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#7c8200">( 51%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#09f500">(  4%)</span></td>
+</tr>
+    <tr><td>SLTI      </td><td style="text-align:right" bgcolor="#07f700"> 097.00% <span style="margin:2px; background-color:#12ec00">( 93%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#35c900">( 79%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 040.00% <span style="margin:4px; background-color:#3bc300">( 23%)</span></td>
+</tr>
+    <tr><td>SLTIU     </td><td style="text-align:right" bgcolor="#07f700"> 097.00% <span style="margin:2px; background-color:#36c800">( 79%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#3cc200">( 76%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 050.00% <span style="margin:4px; background-color:#2ad400">( 17%)</span></td>
+</tr>
+    <tr><td>LWL       </td><td style="text-align:right" bgcolor="#07f700"> 096.88% <span style="margin:2px; background-color:#b94500">( 27%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#b04e00">( 31%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#01fd00">(  1%)</span></td>
+</tr>
+    <tr><td>LWR       </td><td style="text-align:right" bgcolor="#07f700"> 096.88% <span style="margin:2px; background-color:#be4000">( 25%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#b04e00">( 31%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#01fd00">(  1%)</span></td>
+</tr>
+    <tr><td>ANDI      </td><td style="text-align:right" bgcolor="#0cf200"> 095.00% <span style="margin:2px; background-color:#13eb00">( 92%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#38c600">( 78%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#28d600">( 16%)</span></td>
+</tr>
+    <tr><td>ADDI      </td><td style="text-align:right" bgcolor="#0fef00"> 094.00% <span style="margin:2px; background-color:#1ae400">( 90%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#3cc200">( 76%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#24da00">( 14%)</span></td>
+</tr>
+    <tr><td>ADDIU     </td><td style="text-align:right" bgcolor="#0fef00"> 094.00% <span style="margin:2px; background-color:#28d600">( 84%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#45b900">( 73%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#2ad400">( 17%)</span></td>
+</tr>
+    <tr><td>LUI       </td><td style="text-align:right" bgcolor="#0fef00"> 094.00% <span style="margin:2px; background-color:#2bd300">( 83%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#7c8200">( 51%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#15e900">(  9%)</span></td>
+</tr>
+    <tr><td>ORI       </td><td style="text-align:right" bgcolor="#0fef00"> 094.00% <span style="margin:2px; background-color:#1ae400">( 90%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#3bc300">( 77%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#1de100">( 12%)</span></td>
+</tr>
+    <tr><td>XORI      </td><td style="text-align:right" bgcolor="#0fef00"> 094.00% <span style="margin:2px; background-color:#1ae400">( 90%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#36c800">( 79%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#29d500">( 16%)</span></td>
+</tr>
+    <tr><td>SRAV      </td><td style="text-align:right" bgcolor="#6b9300"> 058.00% <span style="margin:2px; background-color:#2ad400">( 83%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#3cc200">( 76%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 000.00% <span style="margin:4px; background-color:#21dd00">( 13%)</span></td>
+</tr>
+<tr><td><b>Average</b></td><p>If you're seeing weird results above (and quite a few have them), then look in
+    the relevant log files. For example, some people have tests that are applied to the ref CPU, but not to
+    the null CPU (or vice versa). This usually indicates that your tester crashed or called exit, but
+    only on one path.
+<td style="text-align:right" bgcolor="#05f900"> 097.88% <span style="margin:4px; background-color:#56a800">( 66%)</span></td>
+<td style="text-align:right" bgcolor="#00ff00"> 100.00% <span style="margin:4px; background-color:#5da100">( 63%)</span></td>
+<td style="text-align:right"> n/a </td>
+</tr>
+    </table>
+<h3>Mapped grade</h3>
+<p>Your grades are extracted from the results using a blending function
+        which is monotonic in success, i.e. each extra thing your CPU/tester does right
+        increases marks. This gives a value from 0.0-1.0, which is then weighted as
+        explained in the spec (I haven't done the bug report marks yet, as I need to
+        check the map back from GH names). The correctness mark depends solely on how much manual
+        work I had to do to get a submission working.
+        <p>We are not allowed to give numeric marks, so I've given letter grades in
+        the following ranges:
+        <table>
+        <tr><td>100-90</td><td>A**</td>
+        <tr><td>90-80</td><td>A*</td>
+        <tr><td>80-75</td><td>A+</td>
+        <tr><td>75-70</td><td>A-</td>
+        <tr><td>70-65</td><td>B+</td>
+        <tr><td>65-60</td><td>B-</td>
+        <tr><td>60-55</td><td>C+</td>
+        <tr><td>55-50</td><td>C-</td>
+        <tr><td>50-45</td><td>D+</td>
+        <tr><td>45-40</td><td>D-</td>
+        <tr><td>40-35</td><td>E+</td>
+        <tr><td>35-30</td><td>E-</td>
+        <tr><td>30-00</td><td>F</td>
+        </table>
+        
+        <p>So your marks are:
+        <ul>
+        <li>Correctness (20%): A**</li>
+        <li>Functionality (50%) : A**</li>
+        <li>Testing (30%): A** </li>
+        <li><b>Overall: A** </b></li>
+        </ul>
+        
+        <p>Note that the correctness component is at 100% unless I do anything,
+        so significant or multiple modifications can decrease the overall mark by 20%.
+    
+<h3>Relative CPU correctness</h3>
+<p>This is showing information about how well each instruction
+        did while also giving some information about how well others did.
+        For each instruction, the total number of implementations is sorted
+        by how well that instruction worked. The shading from red to green
+        shows how well the instructions worked.
+        <p>The highlighted cells indicate the group of scores you were within,
+        as sometimes many people end up with the same level of correctness.
+        
+  <table>
+<tr><td>You</td>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Class Mean</td></tr>    <tr><td>LWR       </td><td class='sel_user'>  96.88%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fd0100' > 0.01</td>
+<td bgcolor='#fb0300' > 0.02</td>
+<td bgcolor='#fb0300' > 0.02</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#c13d00' > 0.24</td>
+<td bgcolor='#43bb00' > 0.73</td>
+<td bgcolor='#3dc100' > 0.76</td>
+<td bgcolor='#3dc100' > 0.76</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  25.22%</td></tr>
+</td></tr>
+    <tr><td>LWL       </td><td class='sel_user'>  96.88%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fd0100' > 0.01</td>
+<td bgcolor='#fb0300' > 0.02</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#43bb00' > 0.73</td>
+<td bgcolor='#3dc100' > 0.76</td>
+<td bgcolor='#3dc100' > 0.76</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  27.38%</td></tr>
+</td></tr>
+    <tr><td>BLTZAL    </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#af4f00' > 0.31</td>
+<td bgcolor='#8c7200' > 0.45</td>
+<td bgcolor='#8c7200' > 0.45</td>
+<td bgcolor='#8c7200' > 0.45</td>
+<td bgcolor='#8c7200' > 0.45</td>
+<td bgcolor='#8c7200' > 0.45</td>
+<td bgcolor='#8c7200' > 0.45</td>
+<td bgcolor='#8c7200' > 0.45</td>
+<td bgcolor='#728c00' > 0.55</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  34.91%</td></tr>
+</td></tr>
+    <tr><td>BGEZAL    </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#a05e00' > 0.37</td>
+<td bgcolor='#8c7200' > 0.45</td>
+<td bgcolor='#728c00' > 0.55</td>
+<td bgcolor='#728c00' > 0.55</td>
+<td bgcolor='#728c00' > 0.55</td>
+<td bgcolor='#728c00' > 0.55</td>
+<td bgcolor='#728c00' > 0.55</td>
+<td bgcolor='#728c00' > 0.55</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  35.16%</td></tr>
+</td></tr>
+    <tr><td>JR        </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  37.21%</td></tr>
+</td></tr>
+    <tr><td>JALR      </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  39.53%</td></tr>
+</td></tr>
+    <tr><td>J         </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  41.86%</td></tr>
+</td></tr>
+    <tr><td>JAL       </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  41.86%</td></tr>
+</td></tr>
+    <tr><td>MULT      </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#e21c00' > 0.11</td>
+<td bgcolor='#dd2100' > 0.13</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#c43a00' > 0.23</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#ba4400' > 0.27</td>
+<td bgcolor='#b54900' > 0.29</td>
+<td bgcolor='#af4f00' > 0.31</td>
+<td bgcolor='#a35b00' > 0.36</td>
+<td bgcolor='#a35b00' > 0.36</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  43.63%</td></tr>
+</td></tr>
+    <tr><td>LHU       </td><td class='sel_user'>  97.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#f90500' > 0.02</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e21c00' > 0.11</td>
+<td bgcolor='#d12d00' > 0.18</td>
+<td bgcolor='#8c7200' > 0.45</td>
+<td bgcolor='#4faf00' > 0.69</td>
+<td bgcolor='#1ee000' > 0.88</td>
+<td bgcolor='#1ee000' > 0.88</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  44.16%</td></tr>
+</td></tr>
+    <tr><td>MTLO      </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  44.28%</td></tr>
+</td></tr>
+    <tr><td>MTHI      </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#f90500' > 0.02</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  45.65%</td></tr>
+</td></tr>
+    <tr><td>SH        </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e51900' > 0.10</td>
+<td bgcolor='#d32b00' > 0.17</td>
+<td bgcolor='#877700' > 0.47</td>
+<td bgcolor='#16e800' > 0.91</td>
+<td bgcolor='#16e800' > 0.91</td>
+<td bgcolor='#16e800' > 0.91</td>
+<td bgcolor='#16e800' > 0.91</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  46.93%</td></tr>
+</td></tr>
+    <tr><td>LH        </td><td class='sel_user'>  97.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#3ac400' > 0.77</td>
+<td bgcolor='#1ee000' > 0.88</td>
+<td bgcolor='#1ee000' > 0.88</td>
+<td bgcolor='#16e800' > 0.91</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  47.02%</td></tr>
+</td></tr>
+    <tr><td>DIV       </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#f40a00' > 0.04</td>
+<td bgcolor='#f40a00' > 0.04</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#e01e00' > 0.12</td>
+<td bgcolor='#d42a00' > 0.17</td>
+<td bgcolor='#c93500' > 0.21</td>
+<td bgcolor='#c93500' > 0.21</td>
+<td bgcolor='#aa5400' > 0.33</td>
+<td bgcolor='#7c8200' > 0.51</td>
+<td bgcolor='#6a9400' > 0.58</td>
+<td bgcolor='#2ad400' > 0.83</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  48.95%</td></tr>
+</td></tr>
+    <tr><td>MFHI      </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#ce3000' > 0.19</td>
+<td bgcolor='#c93500' > 0.21</td>
+<td bgcolor='#c13d00' > 0.24</td>
+<td bgcolor='#c13d00' > 0.24</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  50.53%</td></tr>
+</td></tr>
+    <tr><td>MFLO      </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#ce3000' > 0.19</td>
+<td bgcolor='#c93500' > 0.21</td>
+<td bgcolor='#c13d00' > 0.24</td>
+<td bgcolor='#c13d00' > 0.24</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  50.53%</td></tr>
+</td></tr>
+    <tr><td>MULTU     </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#dd2100' > 0.13</td>
+<td bgcolor='#ce3000' > 0.19</td>
+<td bgcolor='#c93500' > 0.21</td>
+<td bgcolor='#c13d00' > 0.24</td>
+<td bgcolor='#c13d00' > 0.24</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  50.86%</td></tr>
+</td></tr>
+    <tr><td>BNE       </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#dd2100' > 0.13</td>
+<td bgcolor='#c63800' > 0.22</td>
+<td bgcolor='#c63800' > 0.22</td>
+<td bgcolor='#c63800' > 0.22</td>
+<td bgcolor='#c63800' > 0.22</td>
+<td bgcolor='#c63800' > 0.22</td>
+<td bgcolor='#c63800' > 0.22</td>
+<td bgcolor='#c63800' > 0.22</td>
+<td bgcolor='#c63800' > 0.22</td>
+<td bgcolor='#c63800' > 0.22</td>
+<td bgcolor='#c63800' > 0.22</td>
+<td bgcolor='#c63800' > 0.22</td>
+<td bgcolor='#c63800' > 0.22</td>
+<td bgcolor='#44ba00' > 0.73</td>
+<td bgcolor='#44ba00' > 0.73</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  51.74%</td></tr>
+</td></tr>
+    <tr><td>SW        </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#f90500' > 0.02</td>
+<td bgcolor='#f90500' > 0.02</td>
+<td bgcolor='#ed1100' > 0.07</td>
+<td bgcolor='#e01e00' > 0.12</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#d82600' > 0.15</td>
+<td bgcolor='#d82600' > 0.15</td>
+<td bgcolor='#d82600' > 0.15</td>
+<td bgcolor='#d82600' > 0.15</td>
+<td bgcolor='#c93500' > 0.21</td>
+<td bgcolor='#c93500' > 0.21</td>
+<td bgcolor='#916d00' > 0.43</td>
+<td bgcolor='#26d800' > 0.85</td>
+<td bgcolor='#26d800' > 0.85</td>
+<td bgcolor='#26d800' > 0.85</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  53.28%</td></tr>
+</td></tr>
+    <tr><td>SB        </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#f90500' > 0.02</td>
+<td bgcolor='#f90500' > 0.02</td>
+<td bgcolor='#f90500' > 0.02</td>
+<td bgcolor='#f90500' > 0.02</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#e21c00' > 0.11</td>
+<td bgcolor='#dd2100' > 0.13</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#778700' > 0.53</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  53.47%</td></tr>
+</td></tr>
+    <tr><td>DIVU      </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#f40a00' > 0.04</td>
+<td bgcolor='#f40a00' > 0.04</td>
+<td bgcolor='#e01e00' > 0.12</td>
+<td bgcolor='#bf3f00' > 0.25</td>
+<td bgcolor='#b74700' > 0.28</td>
+<td bgcolor='#aa5400' > 0.33</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  53.47%</td></tr>
+</td></tr>
+    <tr><td>BGEZ      </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#c13d00' > 0.24</td>
+<td bgcolor='#8e7000' > 0.44</td>
+<td bgcolor='#8e7000' > 0.44</td>
+<td bgcolor='#8e7000' > 0.44</td>
+<td bgcolor='#8e7000' > 0.44</td>
+<td bgcolor='#8e7000' > 0.44</td>
+<td bgcolor='#8e7000' > 0.44</td>
+<td bgcolor='#8e7000' > 0.44</td>
+<td bgcolor='#8e7000' > 0.44</td>
+<td bgcolor='#8e7000' > 0.44</td>
+<td bgcolor='#8e7000' > 0.44</td>
+<td bgcolor='#8e7000' > 0.44</td>
+<td bgcolor='#6d9100' > 0.57</td>
+<td bgcolor='#30ce00' > 0.81</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  54.60%</td></tr>
+</td></tr>
+    <tr><td>BLEZ      </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#cc3300' > 0.20</td>
+<td bgcolor='#936b00' > 0.42</td>
+<td bgcolor='#936b00' > 0.42</td>
+<td bgcolor='#936b00' > 0.42</td>
+<td bgcolor='#936b00' > 0.42</td>
+<td bgcolor='#936b00' > 0.42</td>
+<td bgcolor='#936b00' > 0.42</td>
+<td bgcolor='#936b00' > 0.42</td>
+<td bgcolor='#936b00' > 0.42</td>
+<td bgcolor='#936b00' > 0.42</td>
+<td bgcolor='#936b00' > 0.42</td>
+<td bgcolor='#936b00' > 0.42</td>
+<td bgcolor='#936b00' > 0.42</td>
+<td bgcolor='#2bd300' > 0.83</td>
+<td bgcolor='#2bd300' > 0.83</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  55.70%</td></tr>
+</td></tr>
+    <tr><td>LW        </td><td class='sel_user'>  98.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#f90500' > 0.02</td>
+<td bgcolor='#f90500' > 0.02</td>
+<td bgcolor='#f90500' > 0.02</td>
+<td bgcolor='#f90500' > 0.02</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#e01e00' > 0.12</td>
+<td bgcolor='#e01e00' > 0.12</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#db2300' > 0.14</td>
+<td bgcolor='#d82600' > 0.15</td>
+<td bgcolor='#d82600' > 0.15</td>
+<td bgcolor='#c93500' > 0.21</td>
+<td bgcolor='#966800' > 0.41</td>
+<td bgcolor='#2bd300' > 0.83</td>
+<td bgcolor='#26d800' > 0.85</td>
+<td bgcolor='#26d800' > 0.85</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#05f900' class='sel_user'> 0.98</td>
+<td bgcolor='#05f900' class='sel_user'> 0.98</td>
+<td bgcolor='#05f900' class='sel_user'> 0.98</td>
+<td bgcolor='#05f900' class='sel_user'> 0.98</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  56.23%</td></tr>
+</td></tr>
+    <tr><td>LBU       </td><td class='sel_user'>  98.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#f40a00' > 0.04</td>
+<td bgcolor='#f40a00' > 0.04</td>
+<td bgcolor='#f40a00' > 0.04</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#dd2100' > 0.13</td>
+<td bgcolor='#778700' > 0.53</td>
+<td bgcolor='#47b700' > 0.72</td>
+<td bgcolor='#44ba00' > 0.73</td>
+<td bgcolor='#2dd100' > 0.82</td>
+<td bgcolor='#26d800' > 0.85</td>
+<td bgcolor='#26d800' > 0.85</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#05f900' class='sel_user'> 0.98</td>
+<td bgcolor='#05f900' class='sel_user'> 0.98</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  57.21%</td></tr>
+</td></tr>
+    <tr><td>BLTZ      </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#b74700' > 0.28</td>
+<td bgcolor='#936b00' > 0.42</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#21dd00' > 0.87</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  58.86%</td></tr>
+</td></tr>
+    <tr><td>LB        </td><td class='sel_user'>  98.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#f40a00' > 0.04</td>
+<td bgcolor='#f40a00' > 0.04</td>
+<td bgcolor='#778700' > 0.53</td>
+<td bgcolor='#44ba00' > 0.73</td>
+<td bgcolor='#26d800' > 0.85</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#05f900' class='sel_user'> 0.98</td>
+<td bgcolor='#05f900' class='sel_user'> 0.98</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  60.30%</td></tr>
+</td></tr>
+    <tr><td>BGTZ      </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#f90500' > 0.02</td>
+<td bgcolor='#ad5100' > 0.32</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#38c600' > 0.78</td>
+<td bgcolor='#26d800' > 0.85</td>
+<td bgcolor='#26d800' > 0.85</td>
+<td bgcolor='#23db00' > 0.86</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  64.28%</td></tr>
+</td></tr>
+    <tr><td>BEQ       </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#d32b00' > 0.17</td>
+<td bgcolor='#9b6300' > 0.39</td>
+<td bgcolor='#38c600' > 0.78</td>
+<td bgcolor='#38c600' > 0.78</td>
+<td bgcolor='#38c600' > 0.78</td>
+<td bgcolor='#38c600' > 0.78</td>
+<td bgcolor='#38c600' > 0.78</td>
+<td bgcolor='#38c600' > 0.78</td>
+<td bgcolor='#38c600' > 0.78</td>
+<td bgcolor='#38c600' > 0.78</td>
+<td bgcolor='#38c600' > 0.78</td>
+<td bgcolor='#38c600' > 0.78</td>
+<td bgcolor='#38c600' > 0.78</td>
+<td bgcolor='#38c600' > 0.78</td>
+<td bgcolor='#0cf200' > 0.95</td>
+<td bgcolor='#0cf200' > 0.95</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  67.16%</td></tr>
+</td></tr>
+    <tr><td>SLTIU     </td><td class='sel_user'>  97.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#689600' > 0.59</td>
+<td bgcolor='#639b00' > 0.61</td>
+<td bgcolor='#639b00' > 0.61</td>
+<td bgcolor='#639b00' > 0.61</td>
+<td bgcolor='#609e00' > 0.62</td>
+<td bgcolor='#609e00' > 0.62</td>
+<td bgcolor='#609e00' > 0.62</td>
+<td bgcolor='#609e00' > 0.62</td>
+<td bgcolor='#609e00' > 0.62</td>
+<td bgcolor='#609e00' > 0.62</td>
+<td bgcolor='#0fef00' > 0.94</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  78.56%</td></tr>
+</td></tr>
+    <tr><td>LUI       </td><td class='sel_user'>  94.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  82.79%</td></tr>
+</td></tr>
+    <tr><td>SRAV      </td><td class='sel_user'>  58.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#ed1100' > 0.07</td>
+<td bgcolor='#a35b00' > 0.36</td>
+<td bgcolor='#6b9300' class='sel_user'> 0.58</td>
+<td bgcolor='#689600' > 0.59</td>
+<td bgcolor='#56a800' > 0.66</td>
+<td bgcolor='#23db00' > 0.86</td>
+<td bgcolor='#1ee000' > 0.88</td>
+<td bgcolor='#1ee000' > 0.88</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  83.23%</td></tr>
+</td></tr>
+    <tr><td>ADDIU     </td><td class='sel_user'>  94.00%</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#758900' > 0.54</td>
+<td bgcolor='#758900' > 0.54</td>
+<td bgcolor='#758900' > 0.54</td>
+<td bgcolor='#758900' > 0.54</td>
+<td bgcolor='#758900' > 0.54</td>
+<td bgcolor='#758900' > 0.54</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#669900' > 0.60</td>
+<td bgcolor='#669900' > 0.60</td>
+<td bgcolor='#669900' > 0.60</td>
+<td bgcolor='#669900' > 0.60</td>
+<td bgcolor='#669900' > 0.60</td>
+<td bgcolor='#669900' > 0.60</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  84.14%</td></tr>
+</td></tr>
+    <tr><td>SRA       </td><td class='sel_user'>  99.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#e51900' > 0.10</td>
+<td bgcolor='#708e00' > 0.56</td>
+<td bgcolor='#0cf200' > 0.95</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  85.02%</td></tr>
+</td></tr>
+    <tr><td>SUB       </td><td class='sel_user'>  99.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#b24c00' > 0.30</td>
+<td bgcolor='#966800' > 0.41</td>
+<td bgcolor='#7c8200' > 0.51</td>
+<td bgcolor='#6b9300' > 0.58</td>
+<td bgcolor='#689600' > 0.59</td>
+<td bgcolor='#49b500' > 0.71</td>
+<td bgcolor='#47b700' > 0.72</td>
+<td bgcolor='#35c900' > 0.79</td>
+<td bgcolor='#35c900' > 0.79</td>
+<td bgcolor='#32cc00' > 0.80</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  86.30%</td></tr>
+</td></tr>
+    <tr><td>SLLV      </td><td class='sel_user'>  99.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#f20c00' > 0.05</td>
+<td bgcolor='#639b00' > 0.61</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  87.35%</td></tr>
+</td></tr>
+    <tr><td>SRL       </td><td class='sel_user'>  99.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#e51900' > 0.10</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  88.44%</td></tr>
+</td></tr>
+    <tr><td>ADDI      </td><td class='sel_user'>  94.00%</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#b74700' > 0.28</td>
+<td bgcolor='#897500' > 0.46</td>
+<td bgcolor='#7a8400' > 0.52</td>
+<td bgcolor='#758900' > 0.54</td>
+<td bgcolor='#758900' > 0.54</td>
+<td bgcolor='#669900' > 0.60</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  89.63%</td></tr>
+</td></tr>
+    <tr><td>XORI      </td><td class='sel_user'>  94.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#758900' > 0.54</td>
+<td bgcolor='#758900' > 0.54</td>
+<td bgcolor='#11ed00' > 0.93</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  89.65%</td></tr>
+</td></tr>
+    <tr><td>SRLV      </td><td class='sel_user'>  99.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#ed1100' > 0.07</td>
+<td bgcolor='#639b00' > 0.61</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  89.70%</td></tr>
+</td></tr>
+    <tr><td>ORI       </td><td class='sel_user'>  94.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#758900' > 0.54</td>
+<td bgcolor='#758900' > 0.54</td>
+<td bgcolor='#16e800' > 0.91</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0fef00' class='sel_user'> 0.94</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  89.74%</td></tr>
+</td></tr>
+    <tr><td>SLL       </td><td class='sel_user'>  99.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#ea1400' > 0.08</td>
+<td bgcolor='#e81600' > 0.09</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  90.72%</td></tr>
+</td></tr>
+    <tr><td>ADD       </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#966800' > 0.41</td>
+<td bgcolor='#916d00' > 0.43</td>
+<td bgcolor='#7a8400' > 0.52</td>
+<td bgcolor='#35c900' > 0.79</td>
+<td bgcolor='#35c900' > 0.79</td>
+<td bgcolor='#35c900' > 0.79</td>
+<td bgcolor='#35c900' > 0.79</td>
+<td bgcolor='#19e500' > 0.90</td>
+<td bgcolor='#0fef00' > 0.94</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  91.33%</td></tr>
+</td></tr>
+    <tr><td>SLT       </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#7a8400' > 0.52</td>
+<td bgcolor='#7a8400' > 0.52</td>
+<td bgcolor='#44ba00' > 0.73</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  92.40%</td></tr>
+</td></tr>
+    <tr><td>ANDI      </td><td class='sel_user'>  95.00%</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#e01e00' > 0.12</td>
+<td bgcolor='#6d9100' > 0.57</td>
+<td bgcolor='#6d9100' > 0.57</td>
+<td bgcolor='#19e500' > 0.90</td>
+<td bgcolor='#0fef00' > 0.94</td>
+<td bgcolor='#0cf200' class='sel_user'> 0.95</td>
+<td bgcolor='#0cf200' class='sel_user'> 0.95</td>
+<td bgcolor='#0cf200' class='sel_user'> 0.95</td>
+<td bgcolor='#0cf200' class='sel_user'> 0.95</td>
+<td bgcolor='#0cf200' class='sel_user'> 0.95</td>
+<td bgcolor='#0cf200' class='sel_user'> 0.95</td>
+<td bgcolor='#0cf200' class='sel_user'> 0.95</td>
+<td bgcolor='#0af400' > 0.96</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  92.49%</td></tr>
+</td></tr>
+    <tr><td>OR        </td><td class='sel_user'>  99.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  92.77%</td></tr>
+</td></tr>
+    <tr><td>SLTI      </td><td class='sel_user'>  97.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#ef0f00' > 0.06</td>
+<td bgcolor='#7c8200' > 0.51</td>
+<td bgcolor='#19e500' > 0.90</td>
+<td bgcolor='#14ea00' > 0.92</td>
+<td bgcolor='#0fef00' > 0.94</td>
+<td bgcolor='#0fef00' > 0.94</td>
+<td bgcolor='#0fef00' > 0.94</td>
+<td bgcolor='#0fef00' > 0.94</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#07f700' class='sel_user'> 0.97</td>
+<td bgcolor='#05f900' > 0.98</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  92.91%</td></tr>
+</td></tr>
+    <tr><td>SUBU      </td><td class='sel_user'>  99.00%</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#f70700' > 0.03</td>
+<td bgcolor='#7c8200' > 0.51</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  94.00%</td></tr>
+</td></tr>
+    <tr><td>XOR       </td><td class='sel_user'>  99.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  95.07%</td></tr>
+</td></tr>
+    <tr><td>SLTU      </td><td class='sel_user'> 100.00%</td>
+<td bgcolor='#CCCCCC' > 0.00</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#05f900' > 0.98</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#02fc00' > 0.99</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td bgcolor='#00ff00' class='sel_user'> 1.00</td>
+<td>  95.21%</td></tr>
+</td></tr>
+    <tr><td>AND       </td><td class='sel_user'>  99.00%</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#e51900' > 0.10</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  95.30%</td></tr>
+</td></tr>
+    <tr><td>ADDU      </td><td class='sel_user'>  99.00%</td>
+<td bgcolor='#fc0200' > 0.01</td>
+<td bgcolor='#59a500' > 0.65</td>
+<td bgcolor='#07f700' > 0.97</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#02fc00' class='sel_user'> 0.99</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td bgcolor='#00ff00' > 1.00</td>
+<td>  96.60%</td></tr>
+</td></tr>
+    </table>
+</html>
+<br>
+<h3>Comments on overall marking</H3>
+        <p>While this is all done a heavily automated workflow,
+        the overall procedure is fairly manual. Sometimes people
+        think my marking is all done at the push of a button, so
+        just to reassure:
+        <ol>
+        <li>Build all the submissions and check for compilation errors. Fix anything
+            the crops up manually.
+        <li>Run all the CPUs against a reference tester. This throws up a bunch of
+            errors such as crashes, that are then fixed.
+        <li>Run all the testers against a reference CPU. This throws up a bunch of
+            errors including other crashes, that are then fixed.
+        <li>Once everything is built and running, check through all the output files
+            for any submission that has an abormally low number of passing instructions,
+            or where all tests fail. This often throws up something like little-endianness,
+            not returning values from a function, not initialising variables, etc.
+            which I'll fix in order to allow more tests to pass. One of the data-points
+            used is the output of the self-test, as if there are lots of passing tests
+            in the self-test, but not in other tests, it may indicate a deeper problem.
+        <li>Run all the final tests, including cross products.
+        <li>Look for anything strange again, e.g. zero-output, or cpus that assume
+            they'll be run from a particular directory (for tests they can assume that).
+        <li>Generate all the final zips and do a final check.
+        </ol>
+        This is less to convince you that I'm doing lots of work, and
+        more to explain that if you have got a low result then I have
+        looked at it and pondered it. If it was reasonable to update/change
+        it then I would have done it in exchange for a penalty. But if
+        it is only going to result in a minor improvement in results, or the
+        underlying cause is that it is a low-functionality/rushed implementation,
+        then I'll leave it alone.
+        
+        
+        <p>If you're at the very top end, then I have looked through the
+        top few implementations, and checked off the few failures. As far
+        as I can tell, the implementations that are 100% correct on CPU
+        and tester are correct, and the minor errors in CPU and/or test
+        are genuine errors, based on the log outputs.
+        
+</html>
